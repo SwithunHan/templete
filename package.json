@@ -1,0 +1,68 @@
+{
+  "name": "templete",
+  "version": "1.0.0",
+  "description": "脚手架模板",
+  "private": true,
+  "scripts": {
+    "dev": "webpack-dev-server --config script/webpack.dev.js",
+    "build": "webpack --config script/webpack.pro.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "commitmsg": "validate-commit-msg"
+  },
+  "author": "SwithunHan",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "element-ui": "^2.13.2",
+    "vue": "^2.6.11",
+    "vue-router": "^3.2.0",
+    "vuex": "^3.4.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.0",
+    "@babel/plugin-transform-runtime": "^7.10.1",
+    "@babel/preset-env": "^7.10.0",
+    "autoprefixer": "^9.8.0",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^3.5.3",
+    "cz-conventional-changelog": "^3.2.0",
+    "eslint": "^7.1.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^4.3.0",
+    "husky": "^4.2.5",
+    "less": "^3.11.1",
+    "less-loader": "^6.1.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "mockjs": "^1.1.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "postcss-loader": "^3.0.0",
+    "style-loader": "^1.2.1",
+    "terser-webpack-plugin": "^3.0.2",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "url-loader": "^4.1.0",
+    "validate-commit-msg": "^2.14.0",
+    "vue-loader": "^15.9.2",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^4.2.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "browserslist": [
+    "defaults",
+    "not ie < 11",
+    "last 2 versions",
+    "> 1%",
+    "iOS 7",
+    "last 3 iOS versions"
+  ]
+}

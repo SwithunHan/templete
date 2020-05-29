@@ -1,0 +1,14 @@
+version: "3"
+services:
+  app01:
+    image: nginx
+    restart: always
+    ports:
+    - 8002:80
+    volumes:
+    - "./config:/etc/nginx/conf.d"
+    - "./log:/var/log/nginx"
+    - "./dist:/usr/share/nginx/html"
+    environment:
+    - FORCE_COLOR=1
+    privileged: true

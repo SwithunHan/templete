@@ -1,0 +1,66 @@
+variables:  # 变量，可根据情况定义。gitlab也提供许多预置变量
+image: docker.io/node
+stages:   # 流水线阶段，不同阶段是串行执行，stage下面的jobs却是并行执行。stages默认有3个，分别是build，test和deploy
+  - eslint
+  - build
+#- unit_test
+
+before_script:  # 在每个job执行前触发
+  #创建ssh目录
+  - mkdir -p ~/.ssh
+  #读取Settings->CI/CD->Secret variables 添加的公钥变量
+  - echo "$ID_RSA_PUB" > ~/.ssh/id_rsa.pub
+  #读取私钥变量,并设置权限为600(必须要600,否则报错)
+  - echo "$ID_RSA" > ~/.ssh/id_rsa && chmod 0600 ~/.ssh/id_rsa
+  #收集主机公钥，写入known_hosts,避免出现Are you sure you want to continue connecting (yes/no)?
+  #注意:ecdsa是针对centos7系统的，如果是centos6 需要使用rsa
+  #以下命令是将各个环境的主机公钥写入docker容器的~/.ssh/known_hosts文件
+  - ssh-keyscan -H -t ecdsa -p 22 172.16.18.11 >> ~/.ssh/known_hosts
+#- npm install # 安装依赖包
+
+cache:  # 创建node_modules缓存，不用每次都重新安装依赖了
+  key: ${CI_BUILD_REF_NAME}  # gitlab内置变量
+  paths:
+    - node_modules/
+
+dev:
+  stage: eslint
+  cache:
+    key: "$CI_BUILD_REF_NAME"
+    policy: pull
+    paths:
+      - node_modules
+  script:
+    - if [ ! -d "node_modules" ]; then
+    - npm install
+    - fi
+    - npm run lint
+  only:
+    - dev   # 表示该job只在dev分支上执行
+  allow_failure: false   # 表示该job不允许失败，若失败则表示这次CI失败
+  tags:
+    - rsync
+build:
+  stage: build
+  cache:
+    key: "$CI_BUILD_REF_NAME"
+    policy: pull
+    paths:
+      - node_modules
+  script:
+
+    - if [ ! -d "node_modules" ]; then
+    - npm install
+    - fi
+    - npm run build
+
+    - scp -r ./dist 172.16.18.11:/home/hanxudong/trex
+    - scp -r ./dist 172.16.18.11:/home/hanxudong/kangyingge
+    - scp -r ./dist 172.16.18.11:/home/hanxudong/huangyuchen
+    - scp -r ./dist 172.16.18.11:/home/hanxudong/zhaobaojie
+
+  only:
+    - master   # 表示该job只在master分支上执行
+  allow_failure: false   # 表示该job不允许失败，若失败则表示这次CI失败
+  tags:
+    - rsync
