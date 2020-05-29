@@ -4,10 +4,11 @@ const common = require('./webpack.common');
 
 module.exports = merge(common, {
   context: path.resolve(__dirname, '../'), // 将 entry 的根路口指向 context 配置的文件夹
-  mode: 'production',
+  mode: 'development',
   entry: {
     app: './src/index.js',
   },
+  devtool: 'inline-source-map',
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: '[name].[hash].js',

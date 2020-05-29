@@ -1,7 +1,7 @@
-import axios from '@/libs/api.request';
+import axios from '@/utils/request';
 
 const api = {
-  getData: '/',
+  getData: '/getData',
 };
 export const getData = () => {
   return axios.request({
