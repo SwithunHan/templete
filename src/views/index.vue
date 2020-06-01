@@ -1,13 +1,18 @@
 <template>
-    <p class="test">{{data}}</p>
+    <div>
+        <p class="test">{{data}}</p>
+        <Test/>
+    </div>
 </template>
 
 <script>
 import './index.less';
 import {getData} from '@/api';
+import Test from './test';
 
 export default {
   name: 'index',
+  components: {Test},
   data() {
     return {
       data: '',
@@ -15,14 +20,14 @@ export default {
   },
   created() {
     getData().then((res) => {
-        this.data = res.data
+      this.data = res.data;
     });
   },
 };
 
 </script>
 
-<style scoped>
+<style scoped lang="less">
     .test {
         background: #3a8ee6;
         display: flex;

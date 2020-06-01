@@ -9,6 +9,11 @@ module.exports = {
   entry: {
     app: './src/index.js',
   },
+  output: {
+    path: path.resolve(__dirname, '../dist'),
+    filename: './js/[name].[hash].js',
+    publicPath: '',
+  },
   optimization: {
     minimizer: [
       new TerserJSPlugin({}),
